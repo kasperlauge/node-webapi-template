@@ -1,0 +1,36 @@
+{
+  "name": "nodewebapitemplate",
+  "version": "1.0.0",
+  "description": "template for node web api",
+  "main": "app.js",
+  "scripts": {
+    "watch": "npm run nodemon app.js",
+    "test": "tsc && mocha",
+    "tsc": "tsc",
+    "nodemon": "nodemon",
+    "mocha": "mocha"
+  },
+  "author": "Kasper Lauge Madsen",
+  "license": "ISC",
+  "dependencies": {
+    "addict-ioc": "^2.2.12",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "nodemon": "^1.12.1",
+    "typescript": "^2.5.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.0.4",
+    "@types/cors": "^2.8.1",
+    "@types/express": "^4.0.37",
+    "@types/mocha": "^2.2.43",
+    "@types/sinon": "^2.3.6",
+    "@types/sinon-chai": "^2.7.29",
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
+    "sinon": "^4.0.1",
+    "sinon-chai": "^2.14.0"
+  }
+}

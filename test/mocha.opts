@@ -1,0 +1,3 @@
+./services/*.spec.js
+./controllers/*.spec.js
+--recursice
