@@ -7,7 +7,7 @@ import { ValuesController } from './valuesController';
 chai.use(sinonChai);
 let expect = chai.expect;
 
-let valuesController: ValuesController = null;
+let uut: ValuesController = null;
 let valuesServiceMock = null;
 let reqMock = null;
 let resMock = {
@@ -17,14 +17,14 @@ let resMock = {
 
 describe('ValuesController', () => {
     beforeEach(() => {
-        let expressMock = {
+        let appMock = {
             use: () => { }
         };
         valuesServiceMock = {
             getValues: () => null
         };
 
-        valuesController = new ValuesController(expressMock as any, valuesServiceMock);
+        uut = new ValuesController(appMock as any, valuesServiceMock);
     });
 
     it('should call getValues on valuesService', () => {
@@ -33,7 +33,7 @@ describe('ValuesController', () => {
         valuesServiceMock.getValues = spy();
 
         //Act
-        valuesController.getValues(reqMock, resMock);
+        uut.getValues(reqMock, resMock);
 
         //Assert
         expect(valuesServiceMock.getValues).to.have.been.called;

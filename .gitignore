@@ -61,4 +61,5 @@ typings/
 *.js
 
 #config file
-config.json
+config.development.ts
+config.production.ts

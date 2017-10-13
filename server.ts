@@ -10,7 +10,6 @@ export class Server {
         private express: any,
         private cors: any,
         private bodyParser: any,
-        private fs: any,
         private valuesController: ValuesController
     ) { }
 
@@ -43,7 +42,6 @@ export class Server {
         });
     }
     private initExpressMiddleware = (): Promise<void> => {
-        console.log(this.config.rootUrl);
         return new Promise<void>((resolve, reject) => {
             this.app.use(this.cors());
             this.app.use(this.bodyParser.json());

@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { ValuesService } from './valuesService';
 
-let valuesService: ValuesService = null;
+let uut: ValuesService = null;
 
 
 describe('ValuesService', () => {
     beforeEach(() => {
-        valuesService = new ValuesService();
+        uut = new ValuesService();
     });
 
     it('should return two values', () => {
@@ -14,7 +14,7 @@ describe('ValuesService', () => {
         let values = null;
 
         //Act
-        values = valuesService.getValues();
+        values = uut.getValues();
 
         //Assert
         expect(values.length).to.equal(2);
@@ -25,7 +25,7 @@ describe('ValuesService', () => {
         let values = null;
 
         //Act
-        values = valuesService.getValues();
+        values = uut.getValues();
         let flattenedValue = JSON.stringify(values[0]);
 
         //Assert

@@ -23,7 +23,6 @@ export class Ioc {
         container.registerObject('app', express());
         container.registerObject('cors', cors);
         container.registerObject('bodyParser', bodyParser);
-        container.registerObject('fs', fs);
         container.register('router', Router);
 
         // Register services here
@@ -43,7 +42,6 @@ export class Ioc {
             'express',
             'cors',
             'bodyParser',
-            'fs',
             'valuesController'
             )
             .singleton();
