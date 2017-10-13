@@ -12,7 +12,8 @@ export class Ioc {
     constructor() { }
     public static setUpDependencyInjections(container) {
         container.registerObject('di', container);
-        container.registerObject('express', express());
+        container.registerObject('express', express);
+        container.registerObject('app', express());
         container.registerObject('cors', cors);
         container.registerObject('bodyParser', bodyParser);
         container.registerObject('fs', fs);
@@ -24,12 +25,13 @@ export class Ioc {
         // Register controllers
         container.register('valuesController', ValuesController)
             .dependencies(
-            'express',
+            'app',
             'valuesService')
             .singleton();
 
         container.register('server', Server)
             .dependencies(
+            'app',
             'express',
             'cors',
             'bodyParser',

@@ -1,4 +1,3 @@
-import { Express } from 'express';
 import { ValuesController } from './controllers/valuesController';
 
 export class Server {
@@ -6,7 +5,8 @@ export class Server {
     private configPath: string = null;
 
     constructor(
-        private express: Express,
+        private app: any,
+        private express: any,
         private cors: any,
         private bodyParser: any,
         private fs: any,
@@ -50,7 +50,7 @@ export class Server {
     private listenToServer = (): Promise<void> => {
         // Start server
         return new Promise<void>((resolve, reject) => {
-            this.express.listen(this.port, () => {
+            this.app.listen(this.port, () => {
                 resolve();
             });
         });
@@ -59,12 +59,14 @@ export class Server {
     private initRoutes = (): void => {
         this.valuesController.instantiateRoutes();
         //Index route
-        this.express.get('/', (req: any, res: any) => {
+
+        this.app.use(this.express.static(__dirname + '/dist'));
+        this.app.all('*', (req: any, res: any) => {
             res.sendFile(__dirname + '/dist/index.html');
         });
     }
     private initExpressMiddleware = (): void => {
-        this.express.use(this.cors());
-        this.express.use(this.bodyParser.json());
+        this.app.use(this.cors());
+        this.app.use(this.bodyParser.json());
     }
 }
