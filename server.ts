@@ -2,7 +2,7 @@ import { ValuesController } from './controllers/valuesController';
 import { IConfig } from './config/config';
 
 export class Server {
-    private port: number | string = process.env.PORT || 3000;
+    private port: number | string;
 
     constructor(
         private config: IConfig,
@@ -11,7 +11,9 @@ export class Server {
         private cors: any,
         private bodyParser: any,
         private valuesController: ValuesController
-    ) { }
+    ) {
+        this.port = config.port;
+     }
 
     public start(): Promise<void> {
         return this.initExpressMiddleware()
