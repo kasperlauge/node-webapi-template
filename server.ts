@@ -1,10 +1,11 @@
 import { ValuesController } from './controllers/valuesController';
+import { IConfig } from './config/config';
 
 export class Server {
     private port: number | string = process.env.PORT || 3000;
-    private configPath: string = null;
 
     constructor(
+        private config: IConfig,
         private app: any,
         private express: any,
         private cors: any,
@@ -14,37 +15,9 @@ export class Server {
     ) { }
 
     public start(): Promise<void> {
-        this.initExpressMiddleware();
-        this.initRoutes();
-        return this.readConfigurationFile(this.configPath)
-            .then(this.setUpConfiguration)
+        return this.initExpressMiddleware()
+            .then(this.initRoutes)
             .then(this.listenToServer);
-    }
-
-    public setConfig = (path: string): void => {
-        this.configPath = path;
-    }
-
-    private readConfigurationFile = (path: string): Promise<any> => {
-        if (!path) {
-            return Promise.reject(new Error('No configuration path is provided...'));
-        } else {
-            return new Promise((resolve, reject) => {
-                this.fs.readFile(path, 'utf8', function (err, data) {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(JSON.parse(data));
-                    }
-                });
-            });
-        }
-    }
-
-    private setUpConfiguration = (config: any): Promise<void> => {
-        //Use config object her
-        console.log(config.rootUrl);
-        return Promise.resolve();
     }
 
     private listenToServer = (): Promise<void> => {
@@ -56,17 +29,25 @@ export class Server {
         });
     }
 
-    private initRoutes = (): void => {
-        this.valuesController.instantiateRoutes();
-        //Index route
+    private initRoutes = (): Promise<void> => {
+        return new Promise<void>((resolve, reject) => {
+            //Init controllers
+            this.valuesController.instantiateRoutes();
 
-        this.app.use(this.express.static(__dirname + '/dist'));
-        this.app.all('*', (req: any, res: any) => {
-            res.sendFile(__dirname + '/dist/index.html');
+            //Index route
+            this.app.use(this.express.static(__dirname + '/dist'));
+            this.app.all('*', (req: any, res: any) => {
+                res.sendFile(__dirname + '/dist/index.html');
+            });
+            resolve();
         });
     }
-    private initExpressMiddleware = (): void => {
-        this.app.use(this.cors());
-        this.app.use(this.bodyParser.json());
+    private initExpressMiddleware = (): Promise<void> => {
+        console.log(this.config.rootUrl);
+        return new Promise<void>((resolve, reject) => {
+            this.app.use(this.cors());
+            this.app.use(this.bodyParser.json());
+            resolve();
+        });
     }
 }

@@ -4,6 +4,7 @@
   "description": "template for node web api",
   "main": "app.js",
   "scripts": {
+    "start": "tsc && node app.js",
     "watch": "npm run nodemon app.js",
     "test": "tsc && mocha",
     "tsc": "tsc",

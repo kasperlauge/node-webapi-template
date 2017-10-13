@@ -1,4 +1,6 @@
 import { Container } from 'addict-ioc';
+import { ConfigDevelopment } from './config/config.development';
+import { ConfigProduction } from './config/config.production';
 import { Server } from './server';
 import * as express from 'express';
 import * as cors from 'cors';
@@ -12,6 +14,11 @@ export class Ioc {
     constructor() { }
     public static setUpDependencyInjections(container) {
         container.registerObject('di', container);
+        if(process.env.NODE_ENV === 'production') {
+            container.register('config', ConfigProduction).singleton();
+        } else {
+            container.register('config', ConfigDevelopment).singleton();
+        }
         container.registerObject('express', express);
         container.registerObject('app', express());
         container.registerObject('cors', cors);
@@ -22,7 +29,7 @@ export class Ioc {
         // Register services here
         container.register('valuesService', ValuesService);
 
-        // Register controllers
+        // Register controllers here
         container.register('valuesController', ValuesController)
             .dependencies(
             'app',
@@ -31,6 +38,7 @@ export class Ioc {
 
         container.register('server', Server)
             .dependencies(
+            'config',
             'app',
             'express',
             'cors',
