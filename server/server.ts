@@ -15,17 +15,17 @@ export class Server {
   }
   private port: number | string;
 
-  public start(): Promise<void> {
+  public start(): Promise<string | number> {
     return this.initExpressMiddleware()
       .then(this.initRoutes)
       .then(this.listenToServer);
   }
 
-  private listenToServer = (): Promise<void> => {
+  private listenToServer = (): Promise<string | number> => {
     // Start server
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<string | number>((resolve, reject) => {
       this.app.listen(this.port, () => {
-        resolve();
+        resolve(this.port);
       });
     });
   };

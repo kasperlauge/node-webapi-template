@@ -8,6 +8,6 @@ Ioc.setUpDependencyInjections(container);
 
 // Instantiate and start the server
 let server = container.resolve<Server>("server");
-server.start().then(() => {
-  console.log("Server started");
+server.start().then(port => {
+  console.log(`Server started on port ${port}`);
 });
