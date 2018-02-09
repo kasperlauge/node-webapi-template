@@ -4,10 +4,13 @@
   "description": "template for node web api",
   "main": "app.js",
   "scripts": {
-    "start": "tsc && node app.js",
-    "watch": "npm run nodemon app.js",
+    "start": "npm run nodemon",
+    "clean": "rimraf artifacts",
+    "build": "npm run clean && npm run tsc --",
+    "lint": "tslint server/**/*.ts",
     "test": "tsc && mocha",
     "tsc": "tsc",
+    "tslint": "tslint",
     "nodemon": "nodemon",
     "mocha": "mocha"
   },
@@ -18,9 +21,7 @@
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
-    "express": "^4.16.2",
-    "nodemon": "^1.12.1",
-    "typescript": "^2.5.3"
+    "express": "^4.16.2"
   },
   "devDependencies": {
     "@types/chai": "^4.0.4",
@@ -31,7 +32,12 @@
     "@types/sinon-chai": "^2.7.29",
     "chai": "^4.1.2",
     "mocha": "^4.0.1",
+    "nodemon": "^1.14.12",
+    "prettier": "^1.10.2",
+    "rimraf": "^2.6.2",
     "sinon": "^4.0.1",
-    "sinon-chai": "^2.14.0"
+    "sinon-chai": "^2.14.0",
+    "tslint": "^5.9.1",
+    "typescript": "^2.7.1"
   }
 }
