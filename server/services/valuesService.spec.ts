@@ -9,7 +9,7 @@ describe("ValuesService", () => {
     uut = new ValuesService();
   });
 
-  it("should return two values", async done => {
+  it("should return two values", async () => {
     // Arrange
     let values: Value[] = null;
 
@@ -18,10 +18,9 @@ describe("ValuesService", () => {
 
     // Assert
     expect(values.length).to.equal(2);
-    done();
   });
 
-  it("should return correct first value", async done => {
+  it("should return correct first value", async () => {
     // Arrange
     let values: Value[] = null;
 
@@ -31,6 +30,5 @@ describe("ValuesService", () => {
 
     // Assert
     expect(flattenedValue).to.equal(JSON.stringify({ param: 1, prop: "test" }));
-    done();
   });
 });

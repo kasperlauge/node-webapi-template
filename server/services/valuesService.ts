@@ -14,7 +14,7 @@ export class ValuesService {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(valuesArray);
-      }, 5000);
+      }, 1000);
     });
   }
 }

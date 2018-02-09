@@ -1,4 +1,4 @@
-./services/*.spec.js
-./controllers/*.spec.js
-./*.spec.js
+./artifacts/services/*.spec.js
+./artifacts/controllers/*.spec.js
+./artifacts/*.spec.js
 --recursice
