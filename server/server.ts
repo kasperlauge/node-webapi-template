@@ -1,5 +1,6 @@
 import { ValuesController } from "./controllers/valuesController";
 import { IConfig } from "./config/config";
+import { MongodbMiddleware } from "./customMiddleware/mongodb.middleware";
 
 export class Server {
   constructor(
@@ -9,6 +10,7 @@ export class Server {
     private cors: any,
     private bodyParser: any,
     private path: any,
+    private mongodbMiddleware: MongodbMiddleware,
     private valuesController: ValuesController
   ) {
     this.port = this.config.port;
@@ -17,6 +19,7 @@ export class Server {
 
   public start(): Promise<string | number> {
     return this.initExpressMiddleware()
+      .then(this.initCustomMiddleware)
       .then(this.initRoutes)
       .then(this.listenToServer);
   }
@@ -49,5 +52,9 @@ export class Server {
       this.app.use(this.bodyParser.json());
       resolve();
     });
+  };
+
+  private initCustomMiddleware = (): Promise<void> => {
+    return this.mongodbMiddleware.init(this.config.dburl, this.config.dbname);
   };
 }

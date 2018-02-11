@@ -13,6 +13,7 @@ let expressMock = null;
 let corsMock = null;
 let bodyParserMock = null;
 let pathMock = null;
+let mongodbMiddlewareMock = null;
 let valuesControllerMock = null;
 // tslint:disable-next-line:no-empty
 let noop = () => {};
@@ -32,6 +33,11 @@ describe("Server", () => {
     bodyParserMock = {
       json: noop
     };
+
+    mongodbMiddlewareMock = {
+      init: noop
+    };
+
     valuesControllerMock = {
       instantiateRoutes: noop
     };
@@ -43,6 +49,7 @@ describe("Server", () => {
       corsMock,
       bodyParserMock,
       pathMock,
+      mongodbMiddlewareMock,
       valuesControllerMock as any
     );
   });
@@ -92,6 +99,17 @@ describe("Server", () => {
     uut.start().then(result => {
       // Assert
       expect(corsMock).to.have.been.called;
+    });
+  });
+
+  it("should instantiate mongodb middleware", () => {
+    // Arrange
+    mongodbMiddlewareMock = spy();
+
+    // Act
+    uut.start().then(result => {
+      // Assert
+      expect(mongodbMiddlewareMock.init).to.have.been.called;
     });
   });
 });

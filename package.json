@@ -2,13 +2,14 @@
   "name": "nodewebapitemplate",
   "version": "1.0.0",
   "description": "template for node web api",
-  "main": "app.js",
+  "main": "artifacts/app.js",
   "scripts": {
     "start": "npm run nodemon",
     "clean": "rimraf artifacts",
     "build": "npm run clean && npm run tsc --",
     "lint": "tslint server/**/*.ts",
     "test": "tsc && mocha",
+    "deploy": "npm run lint && npm run test && node artifacts/app.js",
     "tsc": "tsc",
     "tslint": "tslint",
     "nodemon": "nodemon",
@@ -21,13 +22,19 @@
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "mongodb": "^3.0.2"
+  },
+  "engines": {
+    "node": "^8.9.4",
+    "npm": "^4.6.1"
   },
   "devDependencies": {
     "@types/chai": "^4.0.4",
     "@types/cors": "^2.8.1",
     "@types/express": "^4.0.37",
     "@types/mocha": "^2.2.43",
+    "@types/mongodb": "^3.0.5",
     "@types/sinon": "^2.3.6",
     "@types/sinon-chai": "^2.7.29",
     "chai": "^4.1.2",

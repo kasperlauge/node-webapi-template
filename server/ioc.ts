@@ -9,6 +9,8 @@ import * as path from "path";
 import { Router } from "express";
 import { ValuesController } from "./controllers/valuesController";
 import { ValuesService } from "./services/valuesService";
+import { MongodbMiddleware } from "./customMiddleware/mongodb.middleware";
+import { DataAccess } from "./dataAccess";
 
 export class Ioc {
   public static setUpDependencyInjections(container: Container) {
@@ -24,6 +26,11 @@ export class Ioc {
     container.registerObject("bodyParser", bodyParser);
     container.registerObject("router", Router);
     container.registerObject("path", path);
+    container.register("mongodbMiddleware", MongodbMiddleware).singleton();
+    container
+      .register("dataAccess", DataAccess)
+      .dependencies("mongodbMiddleware")
+      .singleton();
 
     // Register services here
     container.register("valuesService", ValuesService);
@@ -43,6 +50,7 @@ export class Ioc {
         "cors",
         "bodyParser",
         "path",
+        "mongodbMiddleware",
         "valuesController"
       )
       .singleton();
