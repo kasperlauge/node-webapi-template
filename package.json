@@ -10,7 +10,7 @@
     "lint": "tslint server/**/*.ts",
     "test": "tsc && mocha",
     "deploy": "npm run prepare_deploy && node artifacts/app.js",
-    "prepare_deploy": "npm install && tsc",
+    "prepare_deploy": "npm install --dev && tsc",
     "tsc": "tsc",
     "tslint": "tslint",
     "nodemon": "nodemon",
