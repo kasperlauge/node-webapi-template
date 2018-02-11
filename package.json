@@ -9,7 +9,7 @@
     "build": "npm run clean && npm run tsc --",
     "lint": "tslint server/**/*.ts",
     "test": "tsc && mocha",
-    "deploy": "npm install && node artifacts/app.js",
+    "deploy": "tsc && node artifacts/app.js",
     "tsc": "tsc",
     "tslint": "tslint",
     "nodemon": "nodemon",
